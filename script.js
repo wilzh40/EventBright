@@ -47,6 +47,25 @@ google.maps.event.addListenerOnce(map, "idle", function(){
 function getEvents(lat, lon) {
     jQuery.get( "https://www.eventbriteapi.com/v3/events/search/?location.within=200mi&location.latitude="+ lat +"&location.longitude="+ lon +"&token=YRKRMUBSHY35H3KOZ5UX", function( response  ) {
         console.log(response);
+        // var count = response.pagination.page_count;
+        count = 50;
+        console.log(count);
+        while (count--){
+            var id = response.events[count].id;
+            if (response.events[count].hasOwnProperty('venue_id')) {
+                var venue_id = response.events[count].venue_id;
+                jQuery.get( "https://www.eventbriteapi.com/v3/venues/" + venue_id + "/?token=DBYBJ4BPXUHICOJOSQUC", function( response  ) {
+                    console.log(response);
+
+                    });
+
+                }
+
+
+
+
+        }
+
 
 
          }  );
