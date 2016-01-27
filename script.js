@@ -43,13 +43,22 @@ var testData={
 google.maps.event.addListenerOnce(map, "idle", function(){
     heatmap.setDataSet(testData);
 });
-heatmap;
 
+function getEvents(lat, lon) {
+    jQuery.get( "https://www.eventbriteapi.com/v3/events/search/?location.within=200mi&location.latitude="+ lat +"&location.longitude="+ lon +"&token=YRKRMUBSHY35H3KOZ5UX", function( response  ) {
+        console.log(response);
+
+
+         }  );
+}
 document.getElementById("search-button").addEventListener("click", function(){
     //window.location = document.getElementById('link-box').value;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
             console.log("lol");
+
+
+
     }
 });
     function showPosition(position) {
@@ -58,6 +67,7 @@ document.getElementById("search-button").addEventListener("click", function(){
         console.log( "Latitude: " + position.coords.latitude +
                 "<br>Longitude: " + position.coords.longitude);
 
+        getEvents(position.coords.latitude,position.coords.longitude);
         myLatlng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
         loadMap();
 
