@@ -17,16 +17,6 @@ var myOptions = {
 var map = new google.maps.Map(document.getElementById("heatmapArea"), myOptions);
 var heatmap = new HeatmapOverlay(map, {"radius":15, "visible":true, "opacity":60});
 
-document.getElementById("gen").onclick = function(){
-    var x = 5;
-    while(x--){
-        var lat = Math.random()*180;
-        var lng = Math.random()*180;
-        var count = Math.floor(Math.random()*180+1);
-        heatmap.addDataPoint(lat,lng,count);
-    }
-
-};
 
 document.getElementById("tog").onclick = function(){
     heatmap.toggle();
@@ -46,7 +36,7 @@ window.onload = function() {
 // this is important, because if you set the data set too early, the latlng/pixel projection doesn't work
 
 function getEvents(lat, lon) {
-    jQuery.get( "https://www.eventbriteapi.com/v3/events/search/?location.within=200mi&location.latitude="+ lat +"&location.longitude="+ lon +"&token=YRKRMUBSHY35H3KOZ5UX", function( response  ) {
+    jQuery.get( "https://www.eventbriteapi.com/v3/events/search/?location.within=50mi&location.latitude="+ lat +"&location.longitude="+ lon +"&token=YRKRMUBSHY35H3KOZ5UX", function( response  ) {
         console.log(response);
         // var count = response.pagination.page_count;
         count = 50;
@@ -74,7 +64,6 @@ document.getElementById("search-button").addEventListener("click", function(){
     //window.location = document.getElementById('link-box').value;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
-        console.log("lol");
 
 
 
@@ -115,34 +104,12 @@ function loadMap(){
 
     heatmap = new HeatmapOverlay(map, {"radius":15, "visible":true, "opacity":60});
 
-    document.getElementById("gen").onclick = function(){
-        var x = 5;
-        while(x--){
-
-            var lat = Math.random()*180;
-            var lng = Math.random()*180;
-            var count = Math.floor(Math.random()*180+1);
-
-            heatmap.addDataPoint(lat,lng,count);
-
-        }
-
-    };
-
     document.getElementById("tog").onclick = function(){
         heatmap.toggle();
     };
-
-
 
     // this is important, because if you set the data set too early, the latlng/pixel projection doesn't work
 };
     google.maps.event.addListenerOnce(map, "idle", function(){
         heatmap.setDataSet(testData);
-    });
-    google.maps.event.addListenerOnce(map, "zoom_changed", function(){
-        heatmap = new HeatmapOverlay(map, {"radius":15, "visible":true, "opacity":60});
-    });
-    google.maps.event.addListenerOnce(map, "zoom_changed", function(){
-        heatmap = new HeatmapOverlay(map, {"radius":15, "visible":true, "opacity":60});
     });
