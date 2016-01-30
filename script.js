@@ -71,6 +71,9 @@ document.getElementById("search-button").addEventListener("click", function(){
 });
 function showPosition(position) {
     var x = document.getElementById("link-box");
+    var info = document.getElementById("display");
+    info.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
 
     console.log( "Latitude: " + position.coords.latitude +
                 "<br>Longitude: " + position.coords.longitude);
