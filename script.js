@@ -1,8 +1,8 @@
 var myLatlng = new google.maps.LatLng(48.3333, 16.35);
-// sorry - this demo is a beta
 var map;
 var heatmap;
 var testData = [];
+// Eventbrite "upgraded" private key
 var p_token = "EHVCT2USO6SVM4FHT7A4"
 
 
@@ -16,7 +16,7 @@ window.onload = function() {
 
 }
 
-// Call back
+// Call back once location is recieved
 function showPosition(position) {
     var x = document.getElementById("link-box");
     var info = document.getElementById("display");
@@ -31,6 +31,7 @@ function showPosition(position) {
 
 }
 
+// Eventbrite API Calls
 function getEvents(lat, lon) {
     jQuery.get( "https://www.eventbriteapi.com/v3/events/search/?location.within=50mi&location.latitude="+ lat +"&location.longitude="+ lon +"&token=YRKRMUBSHY35H3KOZ5UX", function( response  ) {
         console.log(response);
@@ -65,9 +66,6 @@ function getEvents(lat, lon) {
 
 function loadMap(){
 
-    // sorry - this demo is a beta
-    // there is lots of work todo
-    // but I don't have enough time for eg redrawing on dragrelease right now
     var myOptions = {
         zoom: 10,
         center: myLatlng,
@@ -81,7 +79,6 @@ function loadMap(){
         disableDoubleClickZoom: false
     };
     map = new google.maps.Map(document.getElementById("heatmapArea"), myOptions);
-
     heatmap = new HeatmapOverlay(map, {"radius":15, "visible":true, "opacity":60});
 
     document.getElementById("tog").onclick = function(){
